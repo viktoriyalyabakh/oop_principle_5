@@ -13,8 +13,6 @@ public class Employee_Exercise {
         USBank, Minnesota, 000
         Verizon, Texas, 111
 
-
-
         Create 10 employees
         fullname, jobPosition, age, company
         Andrii, Developer, 25, Tesla
@@ -78,9 +76,12 @@ public class Employee_Exercise {
 
         int tester = 0, developer = 0, manager = 0, designer = 0, systemArchitect = 0, scrumMaster = 0;
 
-        Employee youngestTester = new Employee(null, null, Integer.MAX_VALUE, null);
-        Employee youngestDeveloper = new Employee(null, null, Integer.MAX_VALUE, null);
-        Employee youngestDesigner = new Employee(null, null, Integer.MAX_VALUE, null);
+        Employee youngestTester = new Employee();
+        youngestTester.setAge(Integer.MAX_VALUE);
+        Employee youngestDeveloper = new Employee();
+        youngestDeveloper.setAge(Integer.MAX_VALUE);
+        Employee youngestDesigner = new Employee();
+        youngestDesigner.setAge(Integer.MAX_VALUE);
 
         Employee managerEmployee = new Employee();
         Employee systemArchitectEmployee = new Employee();
@@ -91,20 +92,35 @@ public class Employee_Exercise {
             else if(employee.getCompany().getName().equals("USBank")) usbankEmployees++;
             else verizonEmployees++;
 
-            if(employee.getJobPosition().equals("Tester")) tester++;
-            else if(employee.getJobPosition().equals("Developer")) developer++;
-            else if(employee.getJobPosition().equals("Manager")) manager++;
-            else if(employee.getJobPosition().equals("Designer")) designer++;
-            else if(employee.getJobPosition().equals("System Architect")) systemArchitect++;
-            else scrumMaster++;
+            switch (employee.getJobPosition()) {
+                case "Tester":
+                    tester++;
+                    if(employee.getAge() < youngestTester.getAge()) youngestTester = employee;
+                    break;
+                case "Developer":
+                    developer++;
+                    if(employee.getAge() < youngestDeveloper.getAge()) youngestDeveloper = employee;
+                    break;
+                case "Manager":
+                    manager++;
+                    managerEmployee = employee;
+                    break;
+                case "Designer":
+                    designer++;
+                    if(employee.getAge() < youngestDesigner.getAge()) youngestDesigner = employee;
+                    break;
+                case "System Architect":
+                    systemArchitect++;
+                    systemArchitectEmployee = employee;
+                    break;
+                case "Scrum Master":
+                    scrumMaster++;
+                    scrumMasterEmployee = employee;
+                    break;
+                default:
+                    System.out.println("No match");
+            }
 
-            if(employee.getJobPosition().equals("Tester") && employee.getAge() < youngestTester.getAge()) youngestTester = employee;
-            if(employee.getJobPosition().equals("Developer") && employee.getAge() < youngestDeveloper.getAge()) youngestDeveloper = employee;
-            if(employee.getJobPosition().equals("Designer") && employee.getAge() < youngestDesigner.getAge()) youngestDesigner = employee;
-
-            if(employee.getJobPosition().equals("Manager") && employee.getCompany().equals(c3)) managerEmployee = employee;
-            if(employee.getJobPosition().equals("System Architect") && employee.getCompany().equals(c2)) systemArchitectEmployee = employee;
-            if(employee.getJobPosition().equals("Scrum Master") && employee.getCompany().equals(c2)) scrumMasterEmployee = employee;
         }
 
         System.out.println("Employee numbers for each company");
